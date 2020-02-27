@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <title>Alesya's Home Work</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    
+    <script>
+      $(document).ready(function(){
+        $('#searchBtn').click(function(){
+
+          const start = $('#firstTicketNum').val();
+          const end = $('#lastTicketNum').val();
+
+          let result = [];
+          for (i = start; i <= end; i++){
+            const str = i.toString();
+            const first = Number(str[0]);
+            const second = Number(str[1]);
+            const third = Number(str[2]);
+            const fourth = Number(str[3]);
+            if ((first + second) == (third + fourth)){
+              result.push(i);
+            }
+          }
+          
+          $('#result').text('Результат: ' + result.join());
+          $('.modal').addClass('is-active');
+        });
+
+        $('.modal-close').click(function(){
+          $('.modal').removeClass('is-active');
+        })
+
+        $(".input").bind("propertychange change click keyup input paste", function(event) {
+          const val = $(this).val();
+          if (val < 1000 || val > 9999){
+            $(this).addClass('is-danger');
+            $(this).next().removeClass('is-hidden');
+            $(this).parent().next().removeClass('is-hidden');
+            $('#searchBtn').prop('disabled', true);
+          }
+          else{
+            $(this).removeClass('is-danger');
+            $(this).next().addClass('is-hidden');
+            $(this).parent().next().addClass('is-hidden');
+            $('#searchBtn').prop('disabled', false);
+          }
+        });
+    });
+		</script>
+		
+	</head>
+	<body>
+    <section class="section">
+      
+
+      <div class="container">
+        <div class="columns">
+          <div class="column is-half">
+            <article class="message">
+              <div class="message-header">
+                <p>Задача</p>
+              </div>
+              <div class="message-body">
+                Билет называют «счастливым», если сумма первых двух цифр номера равна сумме двух последних (номер – четырехзначный). 
+При вводе начального и конечного номера диапазона билетов необходимо распечатать список «счастливых» билетов в диапазоне.
+Результат вывести в окно браузера.
+
+Например, так:
+Счастливые билеты в диапазоне от 1234 до 1415: 
+1304
+1313
+1322
+1331
+1340
+1405
+1414
+              </div>
+            </article>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Номер первого билета</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="number" id="firstTicketNum" placeholder="# первого билета" value="1304">
+                <span class="icon is-small is-right is-hidden">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              <p class="help is-danger is-hidden">Номер не валиден (требуется номер в диапозоне 1000 - 9999)</p>
+            </div>
+            <div class="field">
+              <label class="label">Номер второго билета</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="number" id="lastTicketNum" placeholder="# последнего билета" value="1414">
+                <span class="icon is-small is-right is-hidden">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              <p class="help is-danger is-hidden">Номер не валиден (требуется номер в диапозоне 1000 - 9999)</p>
+            </div>
+            <!-- <div class="field">
+              <label class="label">Номер первого билета</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="# первого билета">
+              </div>
+            </div>
+      
+            <div class="field">
+              <label class="label">Номер последнего билета</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="# последнего билета">
+              </div>
+            </div> -->
+            
+            <div class="field">
+              <div class="control">
+                <button class="button is-link" id="searchBtn">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            Решение задачи <strong>"Поиск счастливых билетов"</strong>. Все права защищены. Алеся Ржетская @ Фронтовик
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box" id="result">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.</div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+	</body>
+</html>
